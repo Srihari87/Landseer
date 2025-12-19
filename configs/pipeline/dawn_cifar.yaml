@@ -1,0 +1,59 @@
+dataset:
+  name: cifar10
+  link: https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
+  format: pickle
+  sha1: c58f30108f718f92721af3b95e74349a
+
+model:
+  script: configs/model/config_model_resnet20.py
+  framework: pytorch
+  params: {}
+
+pipeline:
+  pre_training:
+    tools:
+      - name: noop
+        container:
+          image: docker://ghcr.io/landseer-project/pre_noop:v1
+          command: "python main.py"
+    noop:
+      name: noop
+      container:
+        image: docker://ghcr.io/landseer-project/pre_noop:v1
+        command: "python main.py"
+
+  during_training:
+    tools:
+      - name: noop
+        container:
+          image: docker://ghcr.io/landseer-project/in_noop:v5
+          command: "python main.py"
+    noop:
+      name: noop
+      container:
+        image: docker://ghcr.io/landseer-project/in_noop:v5
+        command: "python main.py"
+
+  post_training:
+    tools:
+      - name: dawn
+        container:
+          image: docker://ghcr.io/landseer-project/post_dawn:v1
+          command: "python main.py"
+        script: /scratch/gilbreth/schamara/DAWN/landseer_wrapper/main.py
+        params:
+          ground_truth: /scratch/gilbreth/schamara/DAWN/data/scores/attacker_cifar_prada_l5_single_1000_ground_truth.pkl
+          watermark: /scratch/gilbreth/schamara/DAWN/data/scores/attacker_cifar_prada_l5_single_1000_watermark.pkl
+          output: /output
+
+  deployment:
+    tools:
+      - name: noop
+        container:
+          image: docker://ghcr.io/landseer-project/deploy_noop:v1
+          command: "python main.py"
+    noop:
+      name: noop
+      container:
+        image: docker://ghcr.io/landseer-project/deploy_noop:v1
+        command: "python main.py"

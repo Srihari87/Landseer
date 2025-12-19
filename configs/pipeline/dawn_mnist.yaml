@@ -1,0 +1,28 @@
+dataset:
+  name: ""
+  variant: ""
+
+model:
+  script: ""
+  framework: pytorch
+
+pipeline:
+  no_gpu: true
+
+  pre_training:
+    tools: []
+
+  during_training:
+    tools: []
+
+  post_training:
+    tools:
+      - name: dawn
+        container: docker://ghcr.io/landseer-project/post_noop:v1
+        script: /scratch/gilbreth/$USER/DAWN/landseer_wrapper/main.py
+        params:
+          ground_truth: /scratch/gilbreth/$USER/DAWN/data/scores/attacker_mnist_to_mnist_ws250_l5.pt_ground_truth_2025-12-14.pkl
+          watermark: /scratch/gilbreth/$USER/DAWN/data/scores/attacker_mnist_to_mnist_ws250_l5.pt_watermark_2025-12-14.pkl
+
+  deployment:
+    tools: []

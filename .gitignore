@@ -1,7 +1,12 @@
+HEAD
+=======
+# Runtime / generated
+f600a65 (Add DAWN post-training watermarking configs and ResNet20 CIFAR10 integration)
 cache/
 data/
 results/
 logs/
+HEAD
 tools/
 
 .venv/
@@ -20,3 +25,22 @@ deviation_*
 .node/
 node_modules/
 dist/
+
+run_logs/
+*.sif
+all_pipeline_combinations.csv
+
+# Python
+__pycache__/
+*.pyc
+
+# Poetry
+.poetry/
+
+# Logs / outputs
+landseer_err_*.txt
+landseer_out_*.txt
+
+# Accidental nested repo
+Landseer/
+f600a65 (Add DAWN post-training watermarking configs and ResNet20 CIFAR10 integration)

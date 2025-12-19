@@ -1,0 +1,9 @@
+attacks:
+  backdoor: False
+  adversarial: False
+  outlier: False
+  carlini: False
+  watermarking: True
+  fingerprinting: False
+  inference: False
+  other: False
