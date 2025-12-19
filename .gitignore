@@ -1,0 +1,22 @@
+# Runtime / generated
+cache/
+data/
+results/
+logs/
+run_logs/
+*.sif
+all_pipeline_combinations.csv
+
+# Python
+__pycache__/
+*.pyc
+
+# Poetry
+.poetry/
+
+# Logs / outputs
+landseer_err_*.txt
+landseer_out_*.txt
+
+# Accidental nested repo
+Landseer/
