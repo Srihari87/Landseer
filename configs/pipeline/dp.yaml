@@ -5,7 +5,15 @@ model:
   script: configs/model/config_model_resnet20_dp.py
 pipeline:
   pre_training:
-
+    tools:
+    - name: pre-xgbod
+      container:
+        command: python3 main.py
+        image: ghcr.io/landseer-project/pre_xgbod:v2
+    - name: watermarkbn
+      container: 
+        command: python3 main.py
+        image: ghcr.io/landseer-project/pre_watermarkbn:v1
     noop:
       name: noop
       container:
@@ -29,13 +37,23 @@ pipeline:
       container:
         image: ghcr.io/landseer-project/post_noop_new:v1
         command: python main.py
+    tools:
+    - name: post_neuroprune
+      container:
+        image: ghcr.io/landseer-project/post_neuronprune:v1
+        command: python main.py
 
   deployment:
     tools:
-    - name: deploy_explainshap
+    - name: dataset_inference
       container:
-        image: ghcr.io/landseer-project/deploy_explainshap:v1
+        image: ghcr.io/landseer-project/deploy_dataset_inference:v2
         command: python3 main.py
+    - name: deploy_dp
+      container: 
+        image: ghcr.io/landseer-project/deploy_dp:v1
+        config_script: configs/model/config_model_resnet20_dp.py
+        command: python main.py
     noop:
       name: deploy_noop
       container:
