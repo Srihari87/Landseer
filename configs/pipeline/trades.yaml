@@ -28,7 +28,7 @@ pipeline:
     noop:
       name: in_noop
       container:
-        image: ghcr.io/landseer-project/in_noop:v5
+        image: ghcr.io/landseer-project/in_noop:v7
         command: python main.py
   post_training:
     tools:

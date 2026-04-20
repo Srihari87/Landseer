@@ -25,7 +25,7 @@ pipeline:
 
   deployment:
     tools:
-      name: deploy_explainshap
+    - name: deploy_explainshap
       container:
         image: ghcr.io/landseer-project/deploy_explainshap:v1
         command: python3 main.py
